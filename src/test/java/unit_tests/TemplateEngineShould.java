@@ -2,6 +2,7 @@ package unit_tests;
 
 import org.junit.Before;
 import org.junit.Test;
+import template.MissingValueException;
 import template.TemplateEngine;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,6 +30,11 @@ public class TemplateEngineShould {
     public void ignoreUnknownVariables() throws Exception {
         templateEngine.set("name", "someone");
         assertTemplateEngineEvaluatesTo("1, 2, 3");
+    }
+
+    @Test(expected= MissingValueException.class)
+    public void raiseExceptionIfMissingAValue() throws Exception {
+        new TemplateEngine("${name}").evaluate();
     }
 
     private void assertTemplateEngineEvaluatesTo(String expected) {
