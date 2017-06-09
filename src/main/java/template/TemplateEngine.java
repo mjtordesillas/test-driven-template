@@ -2,6 +2,8 @@ package template;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TemplateEngine {
 
@@ -33,8 +35,9 @@ public class TemplateEngine {
     }
 
     private void checkForMissingValues(String result) {
-        if(result.matches(".*\\$\\{.+\\}.*")) {
-            throw new MissingValueException();
+        Matcher matcher = Pattern.compile(".*\\$\\{.+\\}.*").matcher(result);
+        if(matcher.find()) {
+            throw new MissingValueException("No value for " + matcher.group());
         }
     }
 }

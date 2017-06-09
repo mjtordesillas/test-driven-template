@@ -7,6 +7,7 @@ import template.TemplateEngine;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 public class TemplateEngineShould {
 
@@ -32,9 +33,14 @@ public class TemplateEngineShould {
         assertTemplateEngineEvaluatesTo("1, 2, 3");
     }
 
-    @Test(expected= MissingValueException.class)
+    @Test
     public void raiseExceptionIfMissingAValue() throws Exception {
-        new TemplateEngine("${name}").evaluate();
+        try {
+            new TemplateEngine("${name}").evaluate();
+            fail("evaluate() method should raise an exception when missing values");
+        } catch(MissingValueException expectedException) {
+            assertThat(expectedException.getMessage(), is("No value for ${name}"));
+        }
     }
 
     private void assertTemplateEngineEvaluatesTo(String expected) {
