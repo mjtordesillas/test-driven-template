@@ -37,4 +37,12 @@ public class TemplateEngineShould {
         assertThat(templateEngine.evaluate(), is("1, 2, 3"));
     }
 
+    @Test
+    public void ignoreUnknownVariables() throws Exception {
+        TemplateEngine templateEngine = new TemplateEngine("Hello, ${name}");
+        templateEngine.set("name", "someone");
+        templateEngine.set("doesnotexist", "Hi");
+        assertThat(templateEngine.evaluate(), is("Hello, someone"));
+    }
+
 }
