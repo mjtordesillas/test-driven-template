@@ -1,1 +1,1 @@
-# test-driven-template
+On this repo I will be publishing the examples as I work throw "Test Driven" book by Lasse Koskela
