@@ -14,4 +14,11 @@ public class TemplateEngineShould {
         assertThat(templateEngine.evaluate(), is("Hello, Reader"));
     }
 
+    @Test
+    public void evaluateOneVariableWithDifferentValue() throws Exception {
+        TemplateEngine templateEngine = new TemplateEngine("Hello, ${name}");
+        templateEngine.set("name", "someone else");
+        assertThat(templateEngine.evaluate(), is("Hello, someone else"));
+    }
+
 }
