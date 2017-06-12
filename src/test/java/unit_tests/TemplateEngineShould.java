@@ -43,6 +43,14 @@ public class TemplateEngineShould {
         }
     }
 
+    @Test
+    public void evaluateVariablesJustOnce() throws Exception {
+        templateEngine.set("one", "${one}");
+        templateEngine.set("two", "${two}");
+        templateEngine.set("one", "${three}");
+        assertTemplateEngineEvaluatesTo("${one}, ${two}, ${three}");
+    }
+
     private void assertTemplateEngineEvaluatesTo(String expected) {
         assertThat(templateEngine.evaluate(), is(expected));
     }
